@@ -21,6 +21,7 @@ namespace MISA.Core.Interfaces.Repositories
         /// CreatedBy: hadm (27/8/2021)
         /// ModifiedBy: null
         public Employee GetByCode(string employeeCode);
+
         /// <summary>
         /// Lất tất cả bản ghi
         /// </summary>
@@ -30,6 +31,7 @@ namespace MISA.Core.Interfaces.Repositories
         /// CreatedBy: hadm (27/8/2021)
         /// ModifiedBy: null
         public IEnumerable<Employee> GetAll(int pageIndex, int pageSize);
+
         /// <summary>
         /// Lấy bản ghi qua keyword
         /// </summary>
@@ -42,6 +44,7 @@ namespace MISA.Core.Interfaces.Repositories
         /// CreatedBy: hadm (27/8/2021)
         /// ModifiedBy: null
         public IEnumerable<Employee> GetFilter(string employeeCode, string fullName, string phoneNumber, int pageIndex, int pageSize);
+
         /// <summary>
         /// Lấy mã NV mới
         /// </summary>

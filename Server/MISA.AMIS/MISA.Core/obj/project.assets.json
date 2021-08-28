@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj",
+      "projectUniqueName": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj",
       "projectName": "MISA.Core",
-      "projectPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj",
+      "projectPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj",
       "packagesPath": "C:\\Users\\kodokuna\\.nuget\\packages\\",
-      "outputPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Core\\obj\\",
+      "outputPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\kodokuna\\AppData\\Roaming\\NuGet\\NuGet.Config",

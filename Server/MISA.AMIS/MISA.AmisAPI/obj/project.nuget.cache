@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QwJqhOM8ohAFAHaohEv3PZNrcrmq5DdWa41rClntLyPhXLPaDQ60n+/HBk8MYJZzr01+7OXoDFcHyEb1N8H/zA==",
+  "dgSpecHash": "Y0mfT2RrwRDg6bq0GKnc1GcnA+X/BabS/6uiliEoIoAFXGr4ZzO9+4k+ydJLd9rDshWYzKRPFjg1a/7nLVZcuw==",
   "success": true,
-  "projectFilePath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.AmisAPI\\MISA.AmisAPI.csproj",
+  "projectFilePath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.AmisAPI\\MISA.AmisAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kodokuna\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512",
     "C:\\Users\\kodokuna\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",

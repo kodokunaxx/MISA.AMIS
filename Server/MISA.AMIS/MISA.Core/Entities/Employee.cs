@@ -91,7 +91,7 @@ namespace MISA.Core.Entities
         /// <summary>
         /// Mã phòng ban, đơn vị
         /// </summary>
-        public Guid DepartmentId { get; set; }
+        //public Guid DepartmentId { get; set; }
         /// <summary>
         /// Là khách hàng 0 - sai, 1 - đúng
         /// </summary>

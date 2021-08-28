@@ -17,12 +17,12 @@ namespace MISA.Core.Services
         #region Property
 
         #endregion
-
         #region Constructor
         public EmployeeService(IEmployeeRepository employeeRepository) : base(employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }
+
         #endregion
 
         #region Method
@@ -77,15 +77,16 @@ namespace MISA.Core.Services
         public ServiceResult GetNewCode()
         {
             ServiceResult serviceResult = new ServiceResult();
+            serviceResult.MoreInfo = Properties.Resource.GET;
             try
             {
                 var lastestCode = _employeeRepository.GetLastCode();
                 if(lastestCode == null)
                 {
-                    serviceResult.SetSuccess(serviceResult, "NV00001");
+                    serviceResult.SetSuccess(serviceResult, "NV-00001");
                     return serviceResult;
                 }
-                string number = lastestCode.Substring(2);
+                string number = lastestCode.Substring(3);
                 int firstIndex = 0;
 
                 while (firstIndex < number.Length && number[firstIndex] == '0')
@@ -99,7 +100,7 @@ namespace MISA.Core.Services
                     firstIndex--;
                 }
 
-                serviceResult.Data = lastestCode.Substring(0, 2 + firstIndex) + (Int32.Parse(number) + 1);
+                serviceResult.Data = lastestCode.Substring(0, 3 + firstIndex) + (Int32.Parse(number) + 1);
             }
             catch (Exception e)
             {

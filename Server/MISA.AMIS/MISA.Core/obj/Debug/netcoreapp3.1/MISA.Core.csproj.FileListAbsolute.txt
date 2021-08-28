@@ -7,3 +7,14 @@ D:\Misa Intern\AMIS\MISA.Core\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.Assemb
 D:\Misa Intern\AMIS\MISA.Core\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.csproj.CoreCompileInputs.cache
 D:\Misa Intern\AMIS\MISA.Core\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.dll
 D:\Misa Intern\AMIS\MISA.Core\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.pdb
+D:\Misa Intern\AMIS\MISA.AMIS\Server\MISA.AMIS\MISA.Core\bin\Debug\netcoreapp3.1\MISA.Core.deps.json
+D:\Misa Intern\AMIS\MISA.AMIS\Server\MISA.AMIS\MISA.Core\bin\Debug\netcoreapp3.1\MISA.Core.dll
+D:\Misa Intern\AMIS\MISA.AMIS\Server\MISA.AMIS\MISA.Core\bin\Debug\netcoreapp3.1\MISA.Core.pdb
+D:\Misa Intern\AMIS\MISA.AMIS\Server\MISA.AMIS\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.csproj.AssemblyReference.cache
+D:\Misa Intern\AMIS\MISA.AMIS\Server\MISA.AMIS\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.Properties.Resource.resources
+D:\Misa Intern\AMIS\MISA.AMIS\Server\MISA.AMIS\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.csproj.GenerateResource.cache
+D:\Misa Intern\AMIS\MISA.AMIS\Server\MISA.AMIS\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.AssemblyInfoInputs.cache
+D:\Misa Intern\AMIS\MISA.AMIS\Server\MISA.AMIS\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.AssemblyInfo.cs
+D:\Misa Intern\AMIS\MISA.AMIS\Server\MISA.AMIS\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.csproj.CoreCompileInputs.cache
+D:\Misa Intern\AMIS\MISA.AMIS\Server\MISA.AMIS\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.dll
+D:\Misa Intern\AMIS\MISA.AMIS\Server\MISA.AMIS\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.pdb

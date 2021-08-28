@@ -20,15 +20,15 @@ namespace MISA.Infrastructure.Repositories
         #region Property
 
         #endregion
-
+        
         #region Constructor
-        public BaseRepository(IBaseRepository<T> baseRepository)
+        public BaseRepository()
         {
             _tableName = typeof(T).Name;
             _connectString = "" +
             "Host = 47.241.69.179;" +
             "Port = 3306;" +
-            "Database =  MF792_NVCUONG_AMIS;" +
+            "Database =  backup_amis;" +
             "User Id = dev;" +
             "Password = 12345678";
             _dbConnection = new MySqlConnection(_connectString);
@@ -58,7 +58,7 @@ namespace MISA.Infrastructure.Repositories
             return _dbConnection.Query<T>(sqlCommand, commandType: CommandType.StoredProcedure);
         }
 
-        public virtual T GetById(Guid entityId)
+        public T GetById(Guid entityId)
         {
             string sqlCommand = $"Proc_Get{_tableName}ById";
             DynamicParameters dynamicParameters = new DynamicParameters();
@@ -67,7 +67,7 @@ namespace MISA.Infrastructure.Repositories
             return _dbConnection.QueryFirstOrDefault<T>(sqlCommand, param: dynamicParameters, commandType: CommandType.StoredProcedure);
         }
 
-        public virtual T GetByProperty(string column, string value)
+        public T GetByProperty(string column, string value)
         {
             string sqlCommand = $"Proc_Get{_tableName}By{column}";
 

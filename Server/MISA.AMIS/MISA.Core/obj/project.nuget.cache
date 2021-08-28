@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8L7VUGPz7F23cYG/aJdPn58Q06B3nzlGwscQWWQjzxoHCqfv2J711IwQrFchFSsA+Le2UkIlQkOsGO5X2re7UA==",
+  "dgSpecHash": "xwMnAg7fCHF/N4DLgIGdo8v6GnifI4jwx9Uuge1IxgUScYr4Qf0wp3JSTsfAiBm8b5cK+17AU6otNEOdxj70yA==",
   "success": true,
-  "projectFilePath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj",
+  "projectFilePath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

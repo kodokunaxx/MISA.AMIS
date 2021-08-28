@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Infrastructure\\MISA.Infrastructure.csproj": {}
+    "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Infrastructure\\MISA.Infrastructure.csproj": {}
   },
   "projects": {
-    "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj": {
+    "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj",
+        "projectUniqueName": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj",
         "projectName": "MISA.Core",
-        "projectPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj",
+        "projectPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj",
         "packagesPath": "C:\\Users\\kodokuna\\.nuget\\packages\\",
-        "outputPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Core\\obj\\",
+        "outputPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kodokuna\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -58,14 +58,14 @@
         }
       }
     },
-    "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Infrastructure\\MISA.Infrastructure.csproj": {
+    "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Infrastructure\\MISA.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Infrastructure\\MISA.Infrastructure.csproj",
+        "projectUniqueName": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Infrastructure\\MISA.Infrastructure.csproj",
         "projectName": "MISA.Infrastructure",
-        "projectPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Infrastructure\\MISA.Infrastructure.csproj",
+        "projectPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Infrastructure\\MISA.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\kodokuna\\.nuget\\packages\\",
-        "outputPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Infrastructure\\obj\\",
+        "outputPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kodokuna\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -82,8 +82,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj": {
-                "projectPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj"
+              "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj": {
+                "projectPath": "D:\\Misa Intern\\AMIS\\MISA.AMIS\\Server\\MISA.AMIS\\MISA.Core\\MISA.Core.csproj"
               }
             }
           }
