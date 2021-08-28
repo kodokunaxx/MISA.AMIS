@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\kodokuna\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\kodokuna\\.nuget\\packages"
+    ]
+  }
+}
