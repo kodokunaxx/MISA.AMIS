@@ -149,9 +149,49 @@ namespace MISA.Core.Services
 
                 serviceResult.Data = lastestCode.Substring(0, 3 + firstIndex) + (Int32.Parse(number) + 1);
             }
-            catch( FormatException e)
+            catch (FormatException e)
             {
-                codeIfError += "0";
+                int errorIndex = codeIfError.Length - 1;
+                bool isBreak = false;
+                string tmp = "";
+
+                while (errorIndex > 0 && !isBreak)
+                {
+
+                    try
+                    {
+                        Int32.Parse(codeIfError[errorIndex].ToString());
+                        errorIndex--;
+                    }
+                    catch (FormatException ex)
+                    {
+                        tmp = ex.Message;
+                        isBreak = true;
+                    }
+                }
+                if (errorIndex == codeIfError.Length - 1)
+                {
+                    codeIfError += "0";
+                }
+                else
+                {
+                    string subNumber = "";
+                    if (errorIndex >= 0)
+                    {
+                        subNumber = codeIfError.Substring(errorIndex + 1);
+                    }
+
+                    int lastNumber = Int32.Parse(subNumber[subNumber.Length - 1].ToString()) + 1;
+                    if (lastNumber > 9)
+                    {
+                        subNumber = subNumber.Substring(0, subNumber.Length - 1) + lastNumber.ToString();
+                    }
+                    else
+                    {
+                        subNumber = subNumber.Substring(0, subNumber.Length - 1) + lastNumber;
+                    }
+                    codeIfError = codeIfError.Substring(0, errorIndex + 1) + subNumber;
+                }
                 serviceResult.Data = codeIfError;
                 serviceResult.DevMessage.Add(e.Message);
             }
