@@ -1,0 +1,24 @@
+#app{
+    font-family: MISANotosans;
+    font-size: 13px;
+}
+
+@font-face {
+    font-family: MISANotosans;
+    src: url('../fonts/notosans-regular.2cb88a13.woff2');
+}
+
+@font-face {
+    font-family: MISANotosans-Bold;
+    src: url('../fonts/notosans-bold.3ede5aff.woff2');
+}
+
+@font-face {
+    font-family: MISANotosans-Italic;
+    src: url('../fonts/notosans-italic.1c1aaac9.woff2');
+}
+
+@font-face {
+    font-family: MISANotosans-SemiBold;
+    src: url('../fonts/notosans-semibold.df3e6dc4.woff2');
+}

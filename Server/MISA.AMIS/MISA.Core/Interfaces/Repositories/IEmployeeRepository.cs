@@ -46,12 +46,31 @@ namespace MISA.Core.Interfaces.Repositories
         public IEnumerable<Employee> GetFilter(string employeeCode, string fullName, string phoneNumber, int pageIndex, int pageSize);
 
         /// <summary>
-        /// Lấy mã NV mới
+        /// Lấy mã NV mới nhất
         /// </summary>
-        /// <returns>Mã NV mới</returns>
+        /// <returns>Mã NV mới nhất</returns>
         /// CreatedBy: hadm (27/8/2021)
         /// ModifiedBy: null
         public string GetLastCode();
+
+        /// <summary>
+        /// Đếm tất cả nhân viên
+        /// </summary>
+        /// <returns>số nhân viên</returns>
+        /// CreatedBy: hadm (27/8/2021)
+        /// ModifiedBy: null
+        public int GetCount();
+
+        /// <summary>
+        /// Đếm số nhân viên với keyword
+        /// </summary>
+        /// <param name="employeeCode">Mã NV</param>
+        /// <param name="fullName">Tên</param>
+        /// <param name="phoneNumber">SĐT</param>
+        /// <returns>số nhân viên</returns>
+        /// CreatedBy: hadm (27/8/2021)
+        /// ModifiedBy: null
+        public int GetFilterCount(string employeeCode, string fullName, string phoneNumber);
         #endregion
     }
 }

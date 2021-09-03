@@ -66,11 +66,11 @@ namespace MISA.Core.Entities
         /// <summary>
         /// Số điện thoại cố định
         /// </summary>
-        public string LandlineNumber { get; set; }
+        public string Hotline { get; set; }
         /// <summary>
         /// Địa chỉ Email
         /// </summary>
-        [Email]
+        //[Email]
         public string Email { get; set; }
         /// <summary>
         /// Tài khoản ngân hàng
@@ -91,7 +91,7 @@ namespace MISA.Core.Entities
         /// <summary>
         /// Mã phòng ban, đơn vị
         /// </summary>
-        //public Guid DepartmentId { get; set; }
+        public Guid DepartmentId { get; set; }
         /// <summary>
         /// Là khách hàng 0 - sai, 1 - đúng
         /// </summary>

@@ -33,6 +33,13 @@ namespace MISA.Core.Services
         #endregion
 
         #region Method
+        /// <summary>
+        /// Xóa một bản ghi theo Id
+        /// </summary>
+        /// <param name="entityId">Id của entity</param>
+        /// <returns>Số dòng ảnh hưởng trong DB</returns>
+        /// CreatedBy: hadm (27/8/2021)
+        /// ModifiedBy: null
         public ServiceResult Delete(Guid entityId)
         {
             ServiceResult serviceResult = new ServiceResult();
@@ -59,6 +66,12 @@ namespace MISA.Core.Services
             return serviceResult;
         }
 
+        /// <summary>
+        /// Lấy tất cả bản ghi
+        /// </summary>
+        /// <returns>Tất cả bản ghi</returns>
+        /// CreatedBy: hadm (27/8/2021)
+        /// ModifiedBy: null
         public ServiceResult GetAll()
         {
             ServiceResult serviceResult = new ServiceResult();
@@ -77,6 +90,13 @@ namespace MISA.Core.Services
             return serviceResult;
         }
 
+        /// <summary>
+        /// Lấy một bản ghi theo Id
+        /// </summary>
+        /// <param name="entityId">Id của entity</param>
+        /// <returns>Entity</returns>
+        /// CreatedBy: hadm (27/8/2021)
+        /// ModifiedBy: null
         public ServiceResult GetById(Guid entityId)
         {
             ServiceResult serviceResult = new ServiceResult();
@@ -85,7 +105,8 @@ namespace MISA.Core.Services
             try
             {
                 var data = _baseRepository.GetById(entityId);
-                if (data != null) {
+                if (data != null)
+                {
                     serviceResult.SetSuccess(serviceResult, data);
                 }
                 else
@@ -102,38 +123,59 @@ namespace MISA.Core.Services
             return serviceResult;
         }
 
+        /// <summary>
+        /// Thêm mới một bản ghi
+        /// </summary>
+        /// <param name="entity">Entity</param>
+        /// <returns>Số dòng ảnh hưởng trong DB</returns>
+        /// CreatedBy: hadm (27/8/2021)
+        /// ModifiedBy: null
         public ServiceResult Insert(T entity)
         {
-            ServiceResult serviceResult = CheckValidate(entity);
+            ServiceResult serviceResult = CheckValidate(entity, null);
             serviceResult.MoreInfo = Properties.Resource.POST;
             try
             {
-                var rowEffects = _baseRepository.Insert(entity);
-                if (rowEffects > 0)
+                if (serviceResult.ResultCode == (int)EnumServiceResult.Success)
                 {
-                    serviceResult.SetSuccess(serviceResult, rowEffects);
-                    serviceResult.ResultCode = (int)Enumerations.EnumServiceResult.Created;
+                    var rowEffects = _baseRepository.Insert(entity);
+                    if (rowEffects > 0)
+                    {
+                        serviceResult.SetSuccess(serviceResult, rowEffects);
+                        serviceResult.ResultCode = (int)Enumerations.EnumServiceResult.Created;
+                    }
+                    else
+                    {
+                        serviceResult.SetBadRequest(serviceResult);
+                        serviceResult.DevMessage.Add(Properties.Resource.Dev_Info_Msg);
+                    }
                 }
-                else
-                {
-                    serviceResult.SetBadRequest(serviceResult);
-                    serviceResult.DevMessage.Add(Properties.Resource.Dev_Info_Msg);
-                }
-
             }
             catch (Exception e)
             {
                 serviceResult.SetInternalServerError(serviceResult);
                 serviceResult.DevMessage.Add(e.Message);
             }
-            
+
 
             return serviceResult;
         }
 
+        /// <summary>
+        /// Sửa một bản ghi theo Id
+        /// </summary>
+        /// <param name="entity">Id của entity</param>
+        /// <param name="entityId">Entity</param>
+        /// <returns>Số dòng ảnh hưởng trong DB</returns>
+        /// CreatedBy: hadm (27/8/2021)
+        /// ModifiedBy: null
         public ServiceResult Update(T entity, Guid entityId)
         {
-            ServiceResult serviceResult = CheckValidate(entity);
+            ServiceResult serviceResult = CheckValidate(entity, entityId.ToString());
+            if (serviceResult.ResultCode != (int)EnumServiceResult.Success)
+            {
+                return serviceResult;
+            }
             serviceResult.MoreInfo = Properties.Resource.PUT;
             T isExistEntity = _baseRepository.GetById(entityId);
             try
@@ -158,36 +200,57 @@ namespace MISA.Core.Services
             return serviceResult;
         }
 
-        public ServiceResult CheckValidate(T entity)
+        /// <summary>
+        /// Gán service result với từng loại validate
+        /// </summary>
+        /// <param name="entity">entity</param>
+        /// <param name="id">idEntity</param>
+        /// <returns>service result</returns>
+        /// CreatedBy: hadm (27/8/2021)
+        /// ModifiedBy: null
+        public ServiceResult CheckValidate(T entity, string id)
         {
             ServiceResult serviceResult = new ServiceResult();
             foreach (PropertyInfo prop in entity.GetType().GetProperties())
             {
                 var column = prop.Name;
-                var value = (string)prop.GetValue(entity) ?? "";
+                object value = prop.GetValue(entity);
 
-                if (prop.IsDefined(typeof(Required), true) && CheckEmpty(value))
+
+                if (prop.IsDefined(typeof(Required), true) && CheckEmpty((string)value))
                 {
                     serviceResult.ResultCode = (int)EnumServiceResult.BadRequest;
                     serviceResult.DevMessage.Add(string.Format(Properties.Resource.Required_Msg, column));
                     serviceResult.UserMessage.Add(string.Format(Properties.Resource.Required_Msg, column));
                 }
-                if (prop.IsDefined(typeof(Email), true) && CheckEmail(value))
+                if (prop.IsDefined(typeof(Email), true) && !CheckEmail((string)value))
                 {
                     serviceResult.ResultCode = (int)EnumServiceResult.BadRequest;
                     serviceResult.DevMessage.Add(string.Format(Properties.Resource.Email_Msg, column));
                     serviceResult.UserMessage.Add(string.Format(Properties.Resource.Email_Msg, column));
                 }
-                if (prop.IsDefined(typeof(Duplication), true) && CheckDuplicate(column, value))
+                if (prop.IsDefined(typeof(Duplication), true) && CheckDuplicate(column, (string)value, id))
                 {
                     serviceResult.ResultCode = (int)EnumServiceResult.BadRequest;
                     serviceResult.DevMessage.Add(string.Format(Properties.Resource.Duplicate_Msg, column));
                     serviceResult.UserMessage.Add(string.Format(Properties.Resource.Duplicate_Msg, column));
+                    serviceResult.ValidateInfo.Add( new { 
+                        column = column,
+                        state = "duplicate"
+                    });
                 }
             }
             return serviceResult;
         }
 
+
+        /// <summary>
+        /// Check null
+        /// </summary>
+        /// <param name="value">value</param>
+        /// <returns> true: null / false: not null</returns>
+        /// CreatedBy: hadm (27/8/2021)
+        /// ModifiedBy: null
         public bool CheckEmpty(string value)
         {
             if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
@@ -197,9 +260,18 @@ namespace MISA.Core.Services
             return false;
         }
 
-        public bool CheckDuplicate(string column, string value)
+        /// <summary>
+        /// Check trùng
+        /// </summary>
+        /// <param name="column">tên cột</param>
+        /// <param name="value">giá trị cột</param>
+        /// <param name="id">id entity</param>
+        /// <returns>true: trùng / false: không trùng</returns>
+        /// CreatedBy: hadm (27/8/2021)
+        /// ModifiedBy: null
+        public bool CheckDuplicate(string column, string value, string id)
         {
-            var isDuplicate = _baseRepository.GetByProperty(column, value);
+            var isDuplicate = _baseRepository.GetByProperty(column, value, id);
             if (isDuplicate != null)
             {
                 return true;
@@ -207,6 +279,13 @@ namespace MISA.Core.Services
             return false;
         }
 
+        /// <summary>
+        /// Check email
+        /// </summary>
+        /// <param name="value">value</param>
+        /// <returns>true: là email / false: không phải email</returns>
+        /// CreatedBy: hadm (27/8/2021)
+        /// ModifiedBy: null
         public bool CheckEmail(string value)
         {
             string pattern = @"^((\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)\s*[;,.]{0,1}\s*)+$";

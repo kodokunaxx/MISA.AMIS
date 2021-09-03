@@ -61,7 +61,7 @@ namespace MISA.Core.Interfaces.Repositories
         /// <returns>entity</returns>
         /// CreatedBy: hadm (27/8/2021)
         /// ModifiedBy: null
-        public T GetByProperty(string column, string value);
+        public T GetByProperty(string column, string value, string id);
         #endregion
     }
 }

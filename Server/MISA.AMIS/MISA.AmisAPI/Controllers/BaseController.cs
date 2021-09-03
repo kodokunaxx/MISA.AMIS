@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MISA.Core.Entities;
+using MISA.Core.Enumerations;
 using MISA.Core.Interfaces.Services;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,11 @@ namespace MISA.AmisAPI.Controllers
         public IActionResult Insert([FromBody] T entity)
         {
             ServiceResult serviceResult = _baseService.Insert(entity);
-            return Ok(serviceResult);
+            if (serviceResult.ResultCode == (int)EnumServiceResult.Created)
+            {
+                return StatusCode(201, serviceResult);
+            }
+            return BadRequest(serviceResult);
         }
 
         // PUT: api/v1/<BaseController>/5
@@ -58,7 +63,12 @@ namespace MISA.AmisAPI.Controllers
         public IActionResult Update([FromBody] T entity, Guid entityId)
         {
             ServiceResult serviceResult = _baseService.Update(entity, entityId);
-            return Ok(serviceResult);
+            if (serviceResult.ResultCode == (int)EnumServiceResult.Success)
+            {
+                return Ok(serviceResult);
+            }
+            return BadRequest(serviceResult);
+
         }
 
         // DELETE: api/v1/<BaseController>/5
@@ -68,6 +78,7 @@ namespace MISA.AmisAPI.Controllers
             ServiceResult serviceResult = _baseService.Delete(entityId);
             return Ok(serviceResult);
         }
+
         #endregion
     }
 }

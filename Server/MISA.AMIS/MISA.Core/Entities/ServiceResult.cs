@@ -41,6 +41,13 @@ namespace MISA.Core.Entities
         /// Data trả về cho Client
         /// </summary>
         public object Data { get; set; }
+
+        public List<object> ValidateInfo { get; set; }
+
+        /// <summary>
+        /// Tổng số hàng
+        /// </summary>
+        public int Total { get; set; }
         #endregion
 
         #region Constructor
@@ -56,6 +63,8 @@ namespace MISA.Core.Entities
             UserMessage = new List<string>();
             MoreInfo = null;
             Data = null;
+            Total = -1;
+            ValidateInfo = new List<object>();
         }
         #endregion
 

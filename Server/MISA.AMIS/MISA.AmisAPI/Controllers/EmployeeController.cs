@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace MISA.AmisAPI.Controllers
 {
+    /// <summary>
+    /// EmployeeController
+    /// </summary>
     public class EmployeeController : BaseController<Employee>
     {
         IEmployeeService _employeeService;
@@ -25,9 +28,9 @@ namespace MISA.AmisAPI.Controllers
         }
 
         [HttpGet("filter")]
-        public IActionResult GetFilter(string employeeCode, string fullName, string phoneNumber, int pageIndex, int pageSize)
+        public IActionResult GetFilter(string keyword, int pageIndex, int pageSize)
         {
-            ServiceResult serviceResult = _employeeService.GetFilter(employeeCode, fullName, phoneNumber, pageIndex, pageSize);
+            ServiceResult serviceResult = _employeeService.GetFilter(keyword, keyword, keyword, pageIndex, pageSize);
             return Ok(serviceResult);
         }
 
@@ -36,6 +39,17 @@ namespace MISA.AmisAPI.Controllers
         {
             ServiceResult serviceResult = _employeeService.GetNewCode();
             return Ok(serviceResult);
+        }
+
+
+        [HttpGet("Export")]
+        public IActionResult ExportExcel(string keyword, int pageIndex, int pageSize)
+        {
+            var stream = _employeeService.ExportExcel(keyword, pageIndex, pageSize);
+            string excelName = $"Danh-sach-nhan-vien-{DateTime.Now.ToString("yyyy_MM_dd")}.xlsx";
+
+            //return File(stream, "application/octet-stream", excelName);
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
     }
 }

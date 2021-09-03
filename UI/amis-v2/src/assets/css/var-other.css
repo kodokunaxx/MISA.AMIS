@@ -1,0 +1,23 @@
+.scrollable {
+    overflow: scroll;
+}
+
+.x-scrollable {
+  overflow-x: scroll;
+}
+
+.y-scrollable {
+  overflow-y: scroll;
+}
+
+.upper-case {
+  text-transform: uppercase;
+}
+
+.lower-case {
+  text-transform: lowercase;
+}
+
+.shadow {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}

@@ -1,0 +1,172 @@
+.logo {
+    width: 24px;
+    height: 24px;
+    background-image: url("../img/Sprites.64af8f61.svg");
+}
+
+.logo-48{
+    width: 48px;
+    height: 48px;
+    background-image: url("../img/Sprites.64af8f61.svg");
+}
+
+.icon {
+    width: 14px;
+    height: 14px;
+    background-image: url("../img/Sprites.64af8f61.svg");
+}
+
+.branch-icon{
+    background-position-x: -1128px;
+    background-position-y: -360px;
+}
+
+.user-branch-icon{
+    background-position-x: -1076px;
+    background-position-y: -32px;
+}
+
+.dropdown-icon{
+    background-position-x: -896px;
+    background-position-y: -359px;
+}
+
+.option-logo{
+  background-position-x: -424px;
+  background-position-y: -86px;
+}
+
+.dashboard-logo{
+    background-position-x: -30px;
+    background-position-y: -1628px;
+}
+
+.cash-logo{
+    background-position-x: -73px;
+    background-position-y: -1628px;
+}
+
+.bank-logo{
+    background-position-x: -117px;
+    background-position-y: -1628px;
+}
+
+.purchase-logo{
+    background-position-x: -161px;
+    background-position-y: -1628px;
+}
+
+.sale-logo{
+    background-position-x: -204px;
+    background-position-y: -1628px;
+}
+
+.invoice-logo{
+    background-position-x: -249px;
+    background-position-y: -1628px;
+}
+
+.stock-logo{
+    background-position-x: -291px;
+    background-position-y: -1628px;
+}
+
+.tools-logo{
+    background-position-x: -336px;
+    background-position-y: -1628px;
+}
+
+.fixed-assets-logo{
+    background-position-x: -378px;
+    background-position-y: -1630px;
+}
+
+.tax-logo{
+    background-position-x: -423px;
+    background-position-y: -1630px;
+}
+
+.price-logo{
+    background-position-x: -467px;
+    background-position-y: -1628px;
+}
+
+.general-logo{
+    background-position-x: -510px;
+    background-position-y: -1628px;
+}
+
+.budget-logo{
+    background-position-x: -378px;
+    background-position-y: -1659px;
+}
+
+.report-logo{
+    background-position-x: -547px;
+    background-position-y: -1628px;
+}
+
+.finance-logo{
+    background-position-x: -204px;
+    background-position-y: -1664px;
+}
+
+.three-striped-logo{
+    background-position-x: -843px;
+    background-position-y: -30px;
+}
+
+.notify-logo{
+    background-position-x: -788px;
+    background-position-y: -30px;
+}
+
+.help-logo{
+    background-position-x: -89px;
+    background-position-y: -144px;
+}
+
+.close-logo{
+    background-position-x: -144px;
+    background-position-y: -144px;
+}
+
+.refresh-logo{
+    background-position-x: -423px;
+    background-position-y: -201px;
+}
+
+.error-logo{
+    background-position-x: -24px;
+    background-position-y: -954px;
+}
+
+.warning-logo{
+    background-position-x: -598px;
+    background-position-y: -463px;
+}
+
+.question-logo{
+    background-position-x: -826px;
+    background-position-y: -456px;
+}
+
+.process-customer-logo{
+    background-position-x: -872px;
+    background-position-y: -200px;
+}
+
+.process-provider-logo{
+    background-position-x: -928px;
+    background-position-y: -200px;
+}
+
+.process-employee-logo{
+    background-position-x: -984px;
+    background-position-y: -200px;
+}
+
+.caculator-logo{
+    background-position-x: -1376px;
+    background-position-y: -256px;
+}
