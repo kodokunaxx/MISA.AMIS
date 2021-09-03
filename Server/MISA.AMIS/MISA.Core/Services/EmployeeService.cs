@@ -123,9 +123,11 @@ namespace MISA.Core.Services
         {
             ServiceResult serviceResult = new ServiceResult();
             serviceResult.MoreInfo = Properties.Resource.GET;
+            var codeIfError = "";
             try
             {
                 var lastestCode = _employeeRepository.GetLastCode();
+                codeIfError = lastestCode;
                 if (lastestCode == null)
                 {
                     serviceResult.SetSuccess(serviceResult, "NV-00001");
@@ -146,6 +148,12 @@ namespace MISA.Core.Services
                 }
 
                 serviceResult.Data = lastestCode.Substring(0, 3 + firstIndex) + (Int32.Parse(number) + 1);
+            }
+            catch( FormatException e)
+            {
+                codeIfError += "0";
+                serviceResult.Data = codeIfError;
+                serviceResult.DevMessage.Add(e.Message);
             }
             catch (Exception e)
             {

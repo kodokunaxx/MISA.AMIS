@@ -287,7 +287,11 @@ namespace MISA.Core.Services
         /// CreatedBy: hadm (27/8/2021)
         /// ModifiedBy: null
         public bool CheckEmail(string value)
-        {
+        { 
+            //if( value == null)
+            //{
+            //    return true;
+            //}
             string pattern = @"^((\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)\s*[;,.]{0,1}\s*)+$";
             Regex regex = new Regex(pattern);
             Match match = regex.Match(value);
