@@ -66,4 +66,8 @@ export default {};
   font-family: MISANotosans-SemiBold;
   font-size: 14px;
 }
+
+.notify-logo:hover {
+  animation: shake 0.5s 1 linear;
+}
 </style>

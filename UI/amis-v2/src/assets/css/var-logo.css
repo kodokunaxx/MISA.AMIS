@@ -16,6 +16,17 @@
     background-image: url("../img/Sprites.64af8f61.svg");
 }
 
+.icon-16{
+    width: 16px;
+    height: 16px;
+    background-image: url("../img/Sprites.64af8f61.svg");
+}
+
+.search-icon{
+    background-position-x: -992px;
+    background-position-y: -360px;
+}
+
 .branch-icon{
     background-position-x: -1128px;
     background-position-y: -360px;

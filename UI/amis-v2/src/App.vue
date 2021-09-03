@@ -99,6 +99,10 @@ export default {
   /* overflow-x: hidden; */
 }
 
+::placeholder {
+  font-family: MISANotosans-Italic;
+}
+
 @keyframes clockwise {
   from {
     transform: rotate(0deg);
@@ -113,6 +117,24 @@ export default {
   }
   to {
     transform: rotate(-180deg);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translate3d(0px, 0, 0);
+  }
+  25% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  50% {
+    transform: translate3d(0px, 0, 0);
+  }
+  75% {
+    transform: translate3d(4px, 0, 0);
+  }
+  100% {
+    transform: translate3d(0px, 0, 0);
   }
 }
 
@@ -143,5 +165,41 @@ input[type="radio"] {
   -ms-transform: scale(1.5); /* IE 9 */
   -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
   transform: scale(1.5);
+}
+
+input[type="checkbox"] {
+  position: relative;
+  cursor: pointer;
+}
+input[type="checkbox"]:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  border: 1px solid #babec5;
+  border-radius: 3px;
+  background-color: white;
+}
+
+input[type="checkbox"]:checked:after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 10px;
+  border: solid #08bf1e;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  /* top: 2px; */
+  left: 5px;
+}
+
+.unselected {
+  user-select: none;
 }
 </style>

@@ -12,13 +12,14 @@
       <div class="tool">
         <div class="tool-left"></div>
         <div class="tool-right">
-          <div class="input-text">
+          <div class="input-text dis-flex relative">
             <input
               type="text"
               placeholder="Tìm theo mã, tên nhân viên"
               v-on:keyup="search($event.target.value)"
               v-model="searchValue"
             />
+            <div class="icon-16 search-icon"></div>
           </div>
           <div
             class="logo refresh-logo m-l-12 pointer"
@@ -37,7 +38,11 @@
         <tr class="table-header dis-inline-flex">
           <th class="table-header-item item-outline-left"></th>
           <th class="table-header-item checkbox-sticky checkbox-width p-x-10">
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              class="w-16 h-16"
+              @click="selectAll($event.target.checked)"
+            />
           </th>
           <th
             class="table-header-item medium-width p-x-10"
@@ -99,50 +104,50 @@
           >
             <td class="item-outline-left"></td>
             <td class="content-item checkbox-sticky checkbox-width p-x-10">
-              <input type="checkbox" />
+              <input type="checkbox" class="w-16 h-16" />
             </td>
             <td class="content-item medium-width p-x-10">
-              <div class="textflow">
+              <div>
                 {{ employee.EmployeeCode }}
               </div>
             </td>
             <td class="content-item long-width p-x-10">
-              <div class="textflow">
+              <div>
                 {{ employee.FullName }}
               </div>
             </td>
             <td class="content-item very-short-width p-x-10">
-              <div class="textflow">
+              <div>
                 {{ employee.Gender | formatGender }}
               </div>
             </td>
             <td class="content-item short-width p-x-10 justify-content-center">
-              <div class="textflow">
+              <div>
                 {{ employee.DateOfBirth | formatDate }}
               </div>
             </td>
             <td class="content-item long-width p-x-10">
-              <div class="textflow">
+              <div>
                 {{ employee.SecondName }}
               </div>
             </td>
             <td class="content-item long-width p-x-10">
-              <div class="textflow">
+              <div>
                 {{ employee.DepartmentName }}
               </div>
             </td>
             <td class="content-item medium-width p-x-10">
-              <div class="textflow">
+              <div>
                 {{ employee.BankAccount }}
               </div>
             </td>
             <td class="content-item long-width p-x-10">
-              <div class="textflow">
+              <div>
                 {{ employee.BankName }}
               </div>
             </td>
             <td class="content-item long-width p-x-10">
-              <div class="textflow">
+              <div>
                 {{ employee.BankBranch }}
               </div>
             </td>
@@ -220,7 +225,8 @@
         </DxSelectBox>
         <div class="dis-flex m-l-12">
           <div
-            class="paging-previous paging-blur pointer m-r-13"
+            class="paging-previous pointer unselected m-r-13"
+            :class="pageIndex === 1 ? 'paging-blur' : ''"
             @click="setPageIndex(pageIndex - 1)"
           >
             Trước
@@ -285,8 +291,9 @@
           </div>
 
           <div
-            class="paging-next pointer m-l-13"
+            class="paging-next pointer unselected m-l-13"
             @click="setPageIndex(pageIndex + 1)"
+            :class="pageIndex === totalIndex ? 'paging-blur' : ''"
           >
             Sau
           </div>
@@ -367,7 +374,7 @@ export default {
      * CreatedBy: hadm (31/8/2021)
      * ModifiedBy: null
      */
-    
+
     formatDate: function (date) {
       if (!date) {
         return "";
@@ -555,7 +562,7 @@ export default {
     },
 
     /**
-     * Xuất file excel khi click 
+     * Xuất file excel khi click
      * CreatedBy: hadm (31/8/2021)
      * ModifiedBy: null
      */
@@ -564,6 +571,25 @@ export default {
         this.hostApi +
         `/employees/export?keyword=${this.searchValue}&pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`;
       window.location.href = url;
+    },
+
+    /**
+     *
+     */
+    selectAll(isChecked) {
+      const inputs = document.querySelectorAll(
+        ".content-item.checkbox-sticky input"
+      );
+
+      if (isChecked) {
+        for (const input of inputs) {
+          input.checked = true;
+        }
+      } else {
+        for (const input of inputs) {
+          input.checked = false;
+        }
+      }
     },
   },
 };
@@ -706,15 +732,12 @@ export default {
 .content-item {
   display: flex;
   align-items: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
   border-right: 1px dotted #c7c7c7;
   border-bottom: 1px solid #c7c7c7;
-  height: 47px;
-}
-
-.textflow {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  min-height: 47px;
+  white-space: wrap;
 }
 
 .checkbox-sticky {
@@ -726,13 +749,13 @@ export default {
 }
 
 .checkbox-sticky > input {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
 }
 
 .checkbox-sticky > input:checked {
-  animation: clockwise 0.8s 1;
+  animation: clockwise 0.4s 1;
 }
 
 .feature-sticky {
@@ -784,14 +807,21 @@ export default {
   width: 100%;
   max-width: 100%;
   height: 32px;
-  padding: 6px 10px;
+  padding: 6px 25px 6px 11px;
   border: 1px solid #babec5;
   border-radius: 2px;
   box-sizing: border-box;
 }
 
-::placeholder {
-  font-family: MISANotosans-Italic;
+.relative {
+  position: relative;
+}
+
+.input-text .icon-16 {
+  cursor: pointer;
+  position: absolute;
+  right: 8px;
+  top: 8px;
 }
 
 .tool-right .input-text input:focus {

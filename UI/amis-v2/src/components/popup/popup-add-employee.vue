@@ -333,7 +333,7 @@ export default {
         DepartmentId: null,
       },
       employeeInfoClone: null, //clone employee để so sánh khi click đóng mà thay đổi data
-      cloneOfemployeeInfoClone: null, 
+      cloneOfemployeeInfoClone: null,
       isShowErrorPopup: false,
       isShowDuplicatePopup: false,
       isShowDataChangedPopup: false,
@@ -369,11 +369,11 @@ export default {
     }
   },
   methods: {
-    /** 
+    /**
      * gán data lên v-model
      * CreatedBy: hadm (31/8/2021)
      * ModifiedBy: null
-    */
+     */
     async bindData(id) {
       const me = this;
       try {
@@ -767,6 +767,10 @@ input[type="date"]:focus {
 .input-checkbox {
   width: 18px;
   height: 18px;
+}
+
+.input-checkbox:checked {
+  animation: clockwise 0.8s 1;
 }
 
 .dx-list .dx-empty-message,
