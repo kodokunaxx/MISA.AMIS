@@ -85,6 +85,7 @@ export default {
 @import "./assets/css/var-other.css";
 @import "./assets/css/var-logo.css";
 @import "./assets/css/var-font.css";
+@import "./assets/css/date-picker.css";
 
 .AMIS-content {
   position: absolute;
@@ -201,5 +202,31 @@ input[type="checkbox"]:checked:after {
 
 .unselected {
   user-select: none;
+}
+
+.btn {
+  height: 36px;
+  border: 1px solid #8d9096;
+  border-radius: 3px;
+  padding: 8px 20px;
+  cursor: pointer;
+  font-family: MISANotosans-SemiBold;
+}
+
+.btn.btn-basic {
+  background-color: #ffffff;
+}
+.btn.btn-basic:hover {
+  background-color: #d2d3d6;
+}
+
+.btn.btn-add {
+  color: #ffffff;
+  background-color: #2ca01c;
+  border: none;
+}
+
+.btn.btn-add:hover {
+  background-color: #35bf22;
 }
 </style>

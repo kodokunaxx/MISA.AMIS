@@ -34,6 +34,9 @@
           <div
             class="close-logo logo pointer"
             v-on:click="hidePopupAddEmployee()"
+            title="Đóng (ESC)"
+            v-shortkey="['esc']"
+            @shortkey="hidePopupAddEmployee()"
           ></div>
         </div>
       </div>
@@ -50,7 +53,12 @@
                   <input
                     type="text"
                     class="input-required employee-code"
-                    ref="autofocus"
+                    ref="employeeCode"
+                    @blur="checkEmpty('employeeCode')"
+                    @focus="removeError('employeeCode')"
+                    :title="
+                      isEmptyCode ? 'Mã nhân viên không được để trống' : ''
+                    "
                     v-model="employeeInfo.EmployeeCode"
                   />
                 </div>
@@ -65,6 +73,10 @@
                     type="text"
                     class="input-required fullname"
                     v-model="employeeInfo.FullName"
+                    @blur="checkEmpty('fullName')"
+                    @focus="removeError('fullName')"
+                    :title="isEmptyName ? 'Tên không được để trống' : ''"
+                    ref="fullName"
                   />
                 </div>
               </div>
@@ -85,6 +97,11 @@
                   value-expr="DepartmentID"
                   :data-source="departmentSource"
                   v-model="employeeInfo.DepartmentId"
+                  ref="department"
+                  @focusOut="checkEmpty('department')"
+                  @focusIn="OpenSelectBox($event), removeError('department')"
+                  :acceptCustomValue="true"
+                  :title="isEmptyDepartment ? 'Đơn vị không được để trống' : ''"
                 >
                   <template #item="{ data }">
                     <div>
@@ -110,15 +127,23 @@
           </div>
           <div class="w-1/2">
             <div class="row-input flex-row p-b-12">
-              <div class="w-2/5 p-r-12">
+              <div class="w-2/5">
                 <div class="flex-row">
                   <div class="tooltip-content">Ngày sinh</div>
                 </div>
                 <div class="input-text">
-                  <input type="date" v-model="employeeInfo.DateOfBirth" />
+                  <!-- <input type="date" v-model="employeeInfo.DateOfBirth" /> -->
+                  <date-picker
+                    v-model="employeeInfo.DateOfBirth"
+                    type="date"
+                    placeholder="DD/MM/YYYY"
+                    :format="'DD/MM/YYYY'"
+                    :value-type="'YYYY-MM-DD'"
+                    :disabled-date="(date) => date >= new Date()"
+                  ></date-picker>
                 </div>
               </div>
-              <div class="w-3/5">
+              <div class="w-3/5 p-l-12">
                 <div class="flex-row">
                   <div class="tooltip-content">Giới tính</div>
                 </div>
@@ -128,7 +153,7 @@
                     class="pointer"
                     name="gender-input"
                     id="Male"
-                    :checked="employeeInfo.Gender"
+                    :checked="employeeInfo.Gender == 1"
                     v-on:click="employeeInfo.Gender = 1"
                   />
                   <label
@@ -142,14 +167,28 @@
                     class="pointer"
                     name="gender-input"
                     id="Fmale"
-                    :checked="!employeeInfo.Gender"
+                    :checked="employeeInfo.Gender == 0"
                     v-on:click="employeeInfo.Gender = 0"
                   />
                   <label
-                    class="m-l-10 pointer"
+                    class="m-l-10 m-r-20 pointer"
                     for="Fmale"
                     v-on:click="employeeInfo.Gender = 0"
                     >Nữ</label
+                  >
+                  <input
+                    type="radio"
+                    class="pointer"
+                    name="gender-input"
+                    id="Other"
+                    :checked="employeeInfo.Gender == 3"
+                    v-on:click="employeeInfo.Gender = 3"
+                  />
+                  <label
+                    class="m-l-10 pointer"
+                    for="Other"
+                    v-on:click="employeeInfo.Gender = 3"
+                    >Khác</label
                   >
                 </div>
               </div>
@@ -163,12 +202,20 @@
                   <input type="text" v-model="employeeInfo.IdentityNumber" />
                 </div>
               </div>
-              <div>
+              <div class="w-2/5">
                 <div class="flex-row">
                   <div class="tooltip-content">Ngày cấp</div>
                 </div>
                 <div class="input-text">
-                  <input type="date" v-model="employeeInfo.IdentityDate" />
+                  <!-- <input type="date" v-model="employeeInfo.IdentityDate" /> -->
+                  <date-picker
+                    v-model="employeeInfo.IdentityDate"
+                    type="date"
+                    placeholder="DD/MM/YYYY"
+                    :format="'DD/MM/YYYY'"
+                    :value-type="'YYYY-MM-DD'"
+                    :disabled-date="(date) => date >= new Date()"
+                  ></date-picker>
                 </div>
               </div>
             </div>
@@ -213,7 +260,13 @@
                 <div class="tooltip-content">Email</div>
               </div>
               <div class="input-text">
-                <input type="text" v-model="employeeInfo.Email" />
+                <input
+                  type="text"
+                  @focus="removeError('email')"
+                  :title="!isEmail ? 'Email không đúng định dạng' : ''"
+                  ref="email"
+                  v-model="employeeInfo.Email"
+                />
               </div>
             </div>
           </div>
@@ -257,10 +310,22 @@
               </button>
             </div>
             <div class="footer-right">
-              <button class="btn btn-basic m-x-10" v-on:click="saveData(null)">
+              <button
+                class="btn btn-basic m-x-10"
+                title="Cất (Ctrl + S)"
+                v-on:click="saveData(null)"
+                v-shortkey="['ctrl', 's']"
+                @shortkey="saveData(null)"
+              >
                 Cất
               </button>
-              <button class="btn btn-add" v-on:click="saveData(1)">
+              <button
+                class="btn btn-add"
+                title="Cất và thêm (Ctrl + Shift + S)"
+                v-on:click="saveData(1)"
+                v-shortkey="['ctrl', 'shift', 's']"
+                @shortkey="saveData(1)"
+              >
                 Cất và Thêm
               </button>
             </div>
@@ -292,6 +357,7 @@ import PopupDuplicate from "../popup/popup-duplicatecode.vue";
 import PopupDataChanged from "../popup/popup-data-changed.vue";
 import Loading from "../popup/Loading.vue";
 import EventBus from "../../EventBus";
+import DatePicker from "vue2-datepicker";
 
 export default {
   props: ["id", "isDuplicate"],
@@ -301,9 +367,14 @@ export default {
     PopupDuplicate,
     PopupDataChanged,
     Loading,
+    DatePicker,
   },
   data() {
     return {
+      isEmptyName: false,
+      isEmptyCode: false,
+      isEmptyDepartment: false,
+      isEmail: false,
       hostApi: "https://localhost:44369/api/v1",
       endpoint: "/employees",
       departmentSource: [],
@@ -362,13 +433,21 @@ export default {
     }
   },
   mounted() {
-    this.$refs.autofocus.focus(); //
+    this.$refs.employeeCode.focus(); //
 
     if (this.id != null) {
       this.bindData(this.id);
     }
   },
   methods: {
+    OpenSelectBox(e) {
+      const needOpen =
+        !e.component._popup || e.component._popup.option("visible") == false;
+      if (needOpen) {
+        setTimeout(() => e.component.open(), 200);
+      }
+    },
+
     /**
      * gán data lên v-model
      * CreatedBy: hadm (31/8/2021)
@@ -483,6 +562,10 @@ export default {
       if (!this.enableSubmit) {
         return;
       }
+      this.checkEmail();
+      if (!this.enableSubmit) {
+        return;
+      }
       let apiUrl = "";
 
       // Nếu là update
@@ -541,7 +624,6 @@ export default {
 
           this.isLoading = false;
         });
-      // Thêm 1 biến check xem có lưu dữ liệu ko, nó có thì gọi service get data, ko thì thôi để hiệu năng ok
       localStorage.setItem("changed", "true");
     },
 
@@ -570,28 +652,7 @@ export default {
      */
     checkValidate() {
       const me = this;
-      //const inputRequired = document.querySelectorAll("input.required");
-
       this.enableSubmit = true;
-      // if (inputRequired.length) {
-      //   inputRequired.forEach((input) => {
-      //     if (input.value.trim() === "") {
-      //       input.classList.add("error");
-      //       input.focus();
-      //       me.isShowErrorPopup = true;
-      //       me.enableSubmit = false;
-      //       if (input.classList.contains("fullname")) {
-      //         me.errorContent = "Tên không được để trống";
-      //       } else if (input.classList.contains("employee-code")) {
-      //         me.errorContent = "Mã nhân viên không được để trống";
-      //       } else {
-      //         me.errorContent = "Đơn vị không được để trống";
-      //       }
-      //     } else {
-      //       input.classList.remove("error");
-      //     }
-      //   });
-      // }
       let inputRequi = [
         me.employeeInfo.EmployeeCode,
         me.employeeInfo.FullName,
@@ -601,19 +662,22 @@ export default {
       inputRequi.forEach((input, index) => {
         if (input === null || input === "") {
           ipRequired[index].classList.add("error");
-          ipRequired[index].focus();
+          //ipRequired[index].focus();
           me.isShowErrorPopup = true;
           me.enableSubmit = false;
           if (index == 0) {
             console.log(input, index);
             me.errorContent = "Mã nhân viên không được để trống";
+            this.isEmptyCode = true;
           } else if (index == 1) {
             me.errorContent = "Tên không được để trống";
+            this.isEmptyName = true;
           } else if (index == 2) {
-            document
-              .querySelector(".input-required.department-input input")
-              .focus();
+            document;
+            // .querySelector(".input-required.department-input input")
+            // .focus();
             me.errorContent = "Đơn vị không được để trống";
+            this.isEmptyDepartment = true;
           }
         } else {
           ipRequired[index].classList.remove("error");
@@ -654,6 +718,84 @@ export default {
       this.$emit("hidePopupAddEmployee");
       EventBus.$emit("reloadData");
     },
+
+    /**
+     * check empty value khi blur
+     * CreatedBy: hadm (9/9/2021)
+     * ModifiedBy: null
+     */
+    checkEmpty(refName) {
+      switch (refName) {
+        case "fullName":
+          if (
+            this.employeeInfo.FullName === null ||
+            this.employeeInfo.FullName === ""
+          ) {
+            this.$refs[refName].classList += " error";
+            this.isEmptyName = true;
+          }
+          break;
+        case "employeeCode":
+          if (
+            this.employeeInfo.employeeCode === null ||
+            this.employeeInfo.employeeCode === ""
+          ) {
+            this.$refs[refName].classList.add("error");
+            this.isEmptyCode = true;
+          }
+          break;
+        case "department":
+          if (
+            this.employeeInfo.DepartmentId === null ||
+            this.employeeInfo.DepartmentId === ""
+          ) {
+            console.log(this.$refs[refName].classList);
+            // this.$refs[refName].classList.add("error");
+            this.$refs["department"].$vnode.elm.classList.add("error");
+            this.isEmptyDepartment = true;
+          }
+          break;
+        default:
+          break;
+      }
+    },
+
+    /**
+     * remove border red
+     * CreatedBy: hadm (9/9/2021)
+     * ModifiedBy: null
+     */
+    removeError(refName) {
+      if (refName === "department") {
+        this.$refs["department"].$vnode.elm.classList.remove("error");
+      } else {
+        this.$refs[refName].classList.remove("error");
+      }
+    },
+
+    /**
+     * check Email Validate
+     * CreatedBy: hadm (9/9/2021)
+     * ModifiedBy: null
+     */
+    checkEmail() {
+      const patternEmail =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      this.employeeInfo.Email =
+        this.employeeInfo.Email === null ? "" : this.employeeInfo.Email.trim();
+      if (
+        patternEmail.test(this.employeeInfo.Email) ||
+        this.employeeInfo.Email.trim() === ""
+      ) {
+        this.isEmail = true;
+      } else {
+        this.isEmail = false;
+        this.$refs.email.classList += " error";
+        this.enableSubmit = false;
+        this.isShowErrorPopup = true;
+        this.errorContent = "Email không hợp lệ!";
+      }
+    },
   },
 };
 </script>
@@ -673,7 +815,7 @@ export default {
   position: relative;
   display: flex;
   width: 900px;
-  height: 575px;
+  height: 590px;
   background-color: #fff;
   box-shadow: 0 5px 20px 0 rgb(0 0 0 / 10%);
   flex-direction: column;
@@ -693,6 +835,7 @@ export default {
 .popup-title .title {
   font-size: 24px;
   font-family: MISANotosans-Bold;
+  border: none;
 }
 
 .popup-close {
@@ -705,13 +848,14 @@ export default {
 
 .tooltip-content {
   font-family: MISANotosans-SemiBold;
+  padding-bottom: 4px;
 }
 
 .MISA-popup-add-employee input.error {
   border-color: red !important;
 }
 
-.MISA-popup-add-employee .row-input .input-text > input[type="text"],
+.input-text > input[type="text"],
 input[type="date"] {
   font-family: MISANotosans;
   font-size: 13px;
@@ -724,9 +868,10 @@ input[type="date"] {
   box-sizing: border-box;
 }
 
-.MISA-popup-add-employee .row-input .input-text > input[type="text"],
+.input-text > input[type="text"]:focus,
 input[type="date"]:focus {
-  outline-color: #2ca01c;
+  border: 1px solid #2ca01c;
+  outline: none;
 }
 
 .footer-container {
@@ -737,31 +882,6 @@ input[type="date"]:focus {
   padding-bottom: 32px;
   margin-bottom: 20px;
   border-bottom: 1px solid #e0e0e0;
-}
-.btn {
-  height: 36px;
-  border: 1px solid #8d9096;
-  border-radius: 3px;
-  padding: 8px 20px;
-  cursor: pointer;
-  font-family: MISANotosans-SemiBold;
-}
-
-.btn.btn-basic {
-  background-color: #ffffff;
-}
-.btn.btn-basic:hover {
-  background-color: #d2d3d6;
-}
-
-.btn.btn-add {
-  color: #ffffff;
-  background-color: #2ca01c;
-  border: none;
-}
-
-.btn.btn-add:hover {
-  background-color: #35bf22;
 }
 
 .input-checkbox {
@@ -798,7 +918,7 @@ input[type="date"]:focus {
 }
 
 .dx-texteditor.dx-editor-outlined {
-  border: 1px solid #babec5 !important;
+  /* border: 1px solid #babec5 !important; */
   border-radius: 2px !important;
 }
 

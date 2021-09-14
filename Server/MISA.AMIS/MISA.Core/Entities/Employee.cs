@@ -70,7 +70,7 @@ namespace MISA.Core.Entities
         /// <summary>
         /// Địa chỉ Email
         /// </summary>
-        //[Email]
+        [Email]
         public string Email { get; set; }
         /// <summary>
         /// Tài khoản ngân hàng

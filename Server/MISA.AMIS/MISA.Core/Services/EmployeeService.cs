@@ -214,6 +214,7 @@ namespace MISA.Core.Services
         /// ModifiedBy: null
         public Stream ExportExcel(string keyword, int pageIndex, int pageSize)
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var res = _employeeRepository.GetAll(); ;
             if (keyword != null)
             {
@@ -281,6 +282,7 @@ namespace MISA.Core.Services
                 workSheet.Cells[i + 4, 8].Value = e.BankAccount;
                 workSheet.Cells[i + 4, 9].Value = e.BankName;
 
+                workSheet.Cells[i + 4, 5].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 using (var range = workSheet.Cells[i + 4, 1, i + 4, 9])
                 {
                     range.Style.Border.BorderAround(ExcelBorderStyle.Thin);

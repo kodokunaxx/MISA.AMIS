@@ -76,7 +76,11 @@ namespace MISA.AmisAPI.Controllers
         public IActionResult Delete(Guid entityId)
         {
             ServiceResult serviceResult = _baseService.Delete(entityId);
-            return Ok(serviceResult);
+            if ((int)serviceResult.Data > 1)
+            {
+                return Ok(serviceResult);
+            }
+            return NoContent();
         }
 
         #endregion

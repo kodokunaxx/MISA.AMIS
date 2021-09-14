@@ -16,7 +16,7 @@
             <input
               type="text"
               placeholder="Tìm theo mã, tên nhân viên"
-              v-on:keyup="search($event.target.value)"
+              v-on:keyup.enter="search($event.target.value)"
               v-model="searchValue"
             />
             <div class="icon-16 search-icon"></div>
@@ -349,6 +349,7 @@ export default {
       pageIndex: 1,
       pageSize: 20,
       totalIndex: 1,
+      checkList: [],
     };
   },
   created() {
@@ -393,7 +394,7 @@ export default {
         if (day < 10) {
           day = "0" + day;
         }
-        result = `${day}-${month}-${year}`;
+        result = `${day}/${month}/${year}`;
       }
 
       return result;
@@ -408,7 +409,7 @@ export default {
       if (gender === null || gender === undefined || gender === "") {
         return "";
       }
-      return gender ? "Nam" : "Nữ";
+      return gender == 1 ? "Nam" : gender == 0 ? "Nữ" : "Khác";
     },
   },
   methods: {
@@ -526,7 +527,7 @@ export default {
             })
             .catch((error) => console.log(error));
         }
-      }, 500);
+      }, 0);
     },
 
     /**
@@ -574,7 +575,9 @@ export default {
     },
 
     /**
-     *
+     * Chọn nhiều selectbox
+     * CreatedBy: hadm (31/8/2021)
+     * ModifiedBy: null
      */
     selectAll(isChecked) {
       const inputs = document.querySelectorAll(
@@ -649,7 +652,8 @@ export default {
 
 #layout-dictionary-body .table {
   width: 100%;
-  /* height: calc(100vh - px);
+  /* height: calc(100vh - 120px); */
+  /* 
   overflow: auto; */
 }
 

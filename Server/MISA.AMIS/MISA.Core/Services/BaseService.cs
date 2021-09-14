@@ -295,7 +295,7 @@ namespace MISA.Core.Services
             string pattern = @"^((\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)\s*[;,.]{0,1}\s*)+$";
             Regex regex = new Regex(pattern);
             Match match = regex.Match(value);
-            if (match.Success)
+            if (match.Success || value.Trim() == "")
             {
                 return true;
             }
